@@ -105,5 +105,6 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 This is my first full-stack-style project. I know there’s room for improvement, but I’m proud of it.
 
+Note: When setting up Vercel and Render in a monorepo configuration, set the project root in Vercel to the client folder. Ensure that environment variables are configured to dynamically select the appropriate database URL: use your local database (localhost) in development, and use Supabase/Render in production.
 -----
 

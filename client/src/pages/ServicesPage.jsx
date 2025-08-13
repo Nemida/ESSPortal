@@ -13,9 +13,9 @@ const ServiceCard = ({ title, description, link }) => (
 
 const ServicesPage = () => {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-serif">
+    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-[#2c3e50] border-b pb-4">Employee Services</h1>
+        <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Employee Services</h1>
         <p className="mt-4 text-gray-600">
           Access all the digital services and portals available to you as an employee.
         </p>
