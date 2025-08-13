@@ -29,7 +29,7 @@ const FormDisplayPage = () => {
   }, [formId]);
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-serif">
+    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="mb-4 no-print">
         <Link to="/forms" className="text-sm font-semibold text-indigo-600 hover:underline">
           ← Back to Forms Portal

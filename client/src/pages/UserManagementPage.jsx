@@ -47,7 +47,7 @@ const UserManagementPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-serif">
+    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <section className="bg-white p-8 rounded-lg shadow-md">
         <div className="flex justify-between items-center border-b pb-4">
           <h1 className="text-3xl font-bold text-gray-900">User Management</h1>

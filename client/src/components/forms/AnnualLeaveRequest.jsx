@@ -37,7 +37,7 @@ const AnnualLeaveRequest = ({ formId }) => {
   const handlePrint = () => window.print();
 
   return (
-    <div id="printable-form" className="font-serif">
+    <div id="printable-form" className="font-sans">
       <section className="mb-6"><h3 className="font-semibold text-lg mb-2">Employee Details</h3><div className="grid grid-cols-2 gap-4 text-sm"><div><strong>Name:</strong> {user.first_name} {user.last_name}</div><div><strong>Department:</strong> {user.department || 'N/A'}</div><div><strong>Job Title:</strong> {user.job_title || 'N/A'}</div><div><strong>Email:</strong> {user.email}</div></div></section>
       <form onSubmit={handleSubmit} className="space-y-4">
         <section><h3 className="font-semibold text-lg mb-2">Leave Details</h3><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><div><label className="block text-sm font-medium">Start Date</label><input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required className="mt-1 w-full p-2 border rounded-md"/></div><div><label className="block text-sm font-medium">End Date</label><input type="date" name="endDate" value={formData.endDate} onChange={handleChange} required className="mt-1 w-full p-2 border rounded-md"/></div><div><label className="block text-sm font-medium">Total Days</label><input type="text" readOnly value={formData.totalDays} className="mt-1 w-full p-2 bg-gray-100 border rounded-md"/></div></div><div className="mt-4"><label className="block text-sm font-medium">Reason for Leave</label><textarea name="reason" value={formData.reason} onChange={handleChange} rows="3" required className="mt-1 w-full p-2 border rounded-md"></textarea></div></section>
