@@ -13,7 +13,7 @@ const PublicationsPage = () => {
   const [allPublications, setAllPublications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
-  const [newPub, setNewPub] = useState({ type: 'Journal', title: '', meta: '', description: '', pdf_link: '#' });
+  const [newPub, setNewPub] = useState({ type: 'Journal', title: '', meta: '', description: '', pdf_link: '' });
 
   const fetchPublications = async () => {
     try {
