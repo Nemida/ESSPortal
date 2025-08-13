@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+
+@media print {
+  .main-navbar, .main-footer {
+    display: none;
+  }
+  .no-print {
+    display: none;
+  }
+  #printable-form-container {
+    box-shadow: none;
+    border: none;
+  }
+}
