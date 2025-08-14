@@ -102,7 +102,6 @@ const LoginPage = () => {
           </div>
         </form>
 
-        {/* Footer */}
         <p className="text-xs text-gray-500 text-center mt-4">
           © {new Date().getFullYear()} DRDO Employee Portal. All rights reserved.
         </p>

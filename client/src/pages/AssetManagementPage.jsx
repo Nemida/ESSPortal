@@ -78,7 +78,6 @@ const AssetManagementPage = () => {
           IT Asset Management (Admin)
         </h1>
 
-        {/* Add New Asset Section */}
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-[#2c3e50] mb-4">
             Add New Asset
@@ -153,7 +152,6 @@ const AssetManagementPage = () => {
           </form>
         </section>
 
-        {/* All Assets Section */}
         <section className="mt-12">
           <h2 className="text-2xl font-semibold text-[#2c3e50] mb-4">
             All Assets
@@ -220,7 +218,6 @@ const AssetManagementPage = () => {
         </section>
       </div>
 
-      {/* Assign Modal */}
       {selectedAsset && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <form

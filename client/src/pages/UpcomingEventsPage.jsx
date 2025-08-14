@@ -15,7 +15,7 @@ function parseDateSafe(value) {
   return isNaN(d) ? null : d;
 }
 
-// --- Reusable Empty State ---
+
 const EmptyState = ({ title, subtitle }) => (
   <div className="border border-dashed rounded-lg p-8 text-center text-gray-600 bg-gray-50">
     <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
@@ -131,7 +131,6 @@ const UpcomingEventsPage = () => {
           <div className="mt-8 text-gray-600">Loading events…</div>
         ) : (
           <>
-            {/* Upcoming Events */}
             <section className="mt-8">
               <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Upcoming Events</h2>
               {upcomingEvents.length === 0 ? (
@@ -175,7 +174,7 @@ const UpcomingEventsPage = () => {
               )}
             </section>
 
-            {/* Past Events */}
+           
             <section className="mt-12">
               <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Past Events Gallery</h2>
               {pastEvents.length === 0 ? (
@@ -221,7 +220,6 @@ const UpcomingEventsPage = () => {
           </>
         )}
 
-        {/* Add New Event */}
         {isAdmin && (
           <section className="mt-12 border-t pt-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Add New Event</h2>
