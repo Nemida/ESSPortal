@@ -72,7 +72,7 @@ const AssetManagementPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-serif">
+    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-[#2c3e50] border-b pb-4">
           IT Asset Management (Admin)
@@ -219,17 +219,10 @@ const AssetManagementPage = () => {
       </div>
 
       {selectedAsset && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <form
-            onSubmit={handleAssign}
-            className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md"
-          >
-            <h3 className="text-lg font-bold">
-              Assign "{selectedAsset.asset_name}"
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Enter the employee's email to assign this asset.
-            </p>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
+          <form onSubmit={handleAssign} className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+            <h3 className="text-lg font-bold">Assign "{selectedAsset.asset_name}"</h3>
+            <p className="text-sm text-gray-600 mt-1">Enter the employee's email to assign this asset.</p>
             <input
               type="email"
               value={assignEmail}
@@ -239,19 +232,8 @@ const AssetManagementPage = () => {
               className="mt-4 w-full p-2 border rounded"
             />
             <div className="mt-4 flex gap-4">
-              <button
-                type="submit"
-                className="flex-1 bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700"
-              >
-                Confirm Assignment
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedAsset(null)}
-                className="flex-1 bg-gray-300 p-2 rounded hover:bg-gray-400"
-              >
-                Cancel
-              </button>
+              <button type="submit" className="flex-1 bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700">Confirm Assignment</button>
+              <button type="button" onClick={() => setSelectedAsset(null)} className="flex-1 bg-gray-300 p-2 rounded hover:bg-gray-400">Cancel</button>
             </div>
           </form>
         </div>

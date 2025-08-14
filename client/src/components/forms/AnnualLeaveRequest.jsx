@@ -50,7 +50,7 @@ const AnnualLeaveRequest = ({ formInfo }) => {
   const handlePrint = () => window.print();
 
   return (
-    <div id="printable-form" className="bg-white p-8 rounded-lg shadow-lg font-serif">
+    <div id="printable-form" className="bg-white p-8 rounded-lg shadow-lg font-sans">
       <div className="flex items-start justify-between border-b pb-4 mb-6">
         <div className="flex items-center">
           <img src={DrdoLogo} alt="DRDO Logo" className="h-16 w-16 mr-4"/>

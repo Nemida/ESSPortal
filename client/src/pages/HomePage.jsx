@@ -270,17 +270,8 @@ const HomePage = () => {
       <section className="rounded p-6 bg-gradient-to-r from-[#2c3e50] to-[#34495e] text-white">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-semibold">Partner with DRDO</h2>
-            <p className="mt-2 text-white/90">
-              Explore co-development, testing, and technology transfer opportunities.
-            </p>
+            <h2 className="text-2xl font-semibold">Made by Aditya Menon.</h2>
           </div>
-          <Link
-            to="/contact"
-            className="px-6 py-3 bg-white text-[#2c3e50] rounded font-medium hover:bg-gray-100"
-          >
-            Get in touch
-          </Link>
         </div>
       </section>
     </div>

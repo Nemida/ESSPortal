@@ -3,7 +3,7 @@ const db = require('../db');
 exports.getMyAssets = async (req, res) => {
   try {
     const assets = await db.query(
-      `SELECT a.asset_name, a.asset_type, a.expiry_date, al.assigned_date
+      `SELECT a.asset_name, a.asset_type, a.expiry_date, al.assigned_date, a.license_key
        FROM asset_allocations al
        JOIN it_assets a ON al.asset_id = a.asset_id
        WHERE al.user_id = $1 AND al.is_active = true`,
