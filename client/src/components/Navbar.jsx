@@ -91,6 +91,7 @@ const Navbar = () => {
                 <Link to="/admin/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Admin Dashboard</Link>
                   <Link to="/admin/users" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">User Management</Link>
                     <Link to="/admin/grievances" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Grievance Inbox</Link>
+                    <Link to="/admin/submissions" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Form Submissions</Link>
                    </>
             )}
                   <button

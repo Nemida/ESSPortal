@@ -10,7 +10,7 @@ const allowedOrigins = [process.env.CLIENT_ORIGIN];
 
 
 if (process.env.NODE_ENV !== 'production') {
-  allowedOrigins.push('http://localhost:5173'); // or 3000 depending on your React port
+  allowedOrigins.push('http://localhost:5173'); 
 }
 
 app.use(cors({

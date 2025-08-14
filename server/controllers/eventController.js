@@ -10,15 +10,25 @@ exports.getEvents = async (req, res) => {
 };
 
 exports.addEvent = async (req, res) => {
-  const { day, month, title, description } = req.body;
+  // --- CORRECTED: Add event_date to the destructuring ---
+  const { day, month, title, description, event_date } = req.body;
+  
   try {
     const newEvent = await db.query(
-      'INSERT INTO events (day, month, title, description) VALUES ($1, $2, $3, $4) RETURNING *',
-      [day, month, title, description]
+      // --- CORRECTED: Add the event_date column to the SQL query ---
+      'INSERT INTO events (day, month, title, description, event_date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [
+        day, 
+        month, 
+        title, 
+        description, 
+        event_date || null // Ensure empty strings are saved as NULL
+      ]
     );
     res.status(201).json(newEvent.rows[0]);
-  } catch (err) {
-    res.status(500).send('Server Error');
+  } catch (err) { 
+    console.error(err.message);
+    res.status(500).send('Server Error'); 
   }
 };
 
