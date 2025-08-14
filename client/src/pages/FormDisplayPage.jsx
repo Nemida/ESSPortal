@@ -35,8 +35,8 @@ const FormDisplayPage = () => {
           ← Back to Forms Portal
         </Link>
       </div>
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <div className="border-b pb-4 mb-6">
+      <div className="form-container bg-white p-8 rounded-lg shadow-lg">
+        <div className="border-b pb-4 mb-6 no-print">
           <h1 className="text-3xl font-bold text-[#2c3e50]">
             {loading ? 'Loading Form...' : formInfo?.title}
           </h1>
