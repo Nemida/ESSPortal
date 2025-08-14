@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 const FormsPage = () => {
@@ -36,7 +37,7 @@ const FormsPage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-serif">
+    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b pb-4 mb-6">
           <h1 className="text-3xl font-bold text-[#2c3e50]">Employee Forms Portal</h1>
@@ -63,7 +64,7 @@ const FormsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredForms.length > 0 ? (
             filteredForms.map((form) => (
-              <div key={form.form_id} className="bg-white rounded-lg shadow border overflow-hidden transform transition-transform hover:-translate-y-1 hover:shadow-xl">
+              <Link to={`/forms/${form.form_id}`} key={form.form_id} className="block bg-white rounded-lg shadow border overflow-hidden transform transition-transform hover:-translate-y-1 hover:shadow-xl">
                 <div className="p-5">
                   <span className={`inline-block px-2 py-1 text-xs text-white rounded mb-3 ${form.badge_color}`}>
                     {form.badge_text}
@@ -75,11 +76,9 @@ const FormsPage = () => {
                    <div className="text-xs text-gray-500">
                      <span>Updated: {new Date(form.last_updated).toLocaleDateString()}</span> | <span>{form.version}</span>
                    </div>
-                  <a href="#" className="px-4 py-2 bg-[#2c3e50] text-white text-sm font-medium rounded-md hover:bg-[#34495e] transition-colors">
-                    Visit Form
-                  </a>
+                  <span className="text-sm font-semibold text-indigo-600">Open Form →</span>
                 </div>
-              </div>
+              </Link>
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500 py-10">No forms found matching your criteria.</p>

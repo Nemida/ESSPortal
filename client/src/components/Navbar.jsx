@@ -26,7 +26,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-white shadow-md sticky top-0 z-50 main-navbar">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center py-3">
@@ -91,6 +91,7 @@ const Navbar = () => {
                 <Link to="/admin/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Admin Dashboard</Link>
                   <Link to="/admin/users" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">User Management</Link>
                     <Link to="/admin/grievances" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Grievance Inbox</Link>
+                    <Link to="/admin/submissions" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Form Submissions</Link>
                    </>
             )}
                   <button

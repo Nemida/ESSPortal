@@ -76,7 +76,6 @@ const ResearchAreasPage = () => {
           DRDO spearheads transformative research across critical defense domains. Our current focus areas include hypersonic technologies, quantum computing applications for cybersecurity, artificial intelligence in unmanned systems, and next-generation armor materials.
         </p>
 
-        {/* Research Categories */}
         <section className="mt-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <ResearchCard

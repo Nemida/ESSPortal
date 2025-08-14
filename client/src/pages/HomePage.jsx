@@ -84,7 +84,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex flex-col gap-8 font-serif">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex flex-col gap-8 font-sans">
   
       <div className="flex flex-col lg:flex-row gap-6">
         
@@ -202,10 +202,10 @@ const HomePage = () => {
         <h2 className="text-2xl font-semibold text-[#2c3e50]">Research Areas</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
           {[
-            { title: "Quantum Communication", desc: "Entanglement-based links and QKD testbeds." },
-            { title: "Cryptology", desc: "Post-quantum primitives and protocol hardening." },
-            { title: "Electronic Warfare", desc: "ESM/ECM suites and cognitive jamming." },
-            { title: "Secure Networks", desc: "Zero-trust architectures for defense networks." },
+            { title: "Aeronautics", desc: "Developing advanced aircraft and UAVs." },
+            { title: "Armaments", desc: "Weapons and combat vehicle systems." },
+            { title: "Electronics", desc: "Radars, EW, and communication tech." },
+            { title: "Missiles", desc: "Strategic and tactical missile systems." },
           ].map((card, i) => (
             <div
               key={i}
@@ -270,17 +270,8 @@ const HomePage = () => {
       <section className="rounded p-6 bg-gradient-to-r from-[#2c3e50] to-[#34495e] text-white">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-semibold">Partner with DRDO</h2>
-            <p className="mt-2 text-white/90">
-              Explore co-development, testing, and technology transfer opportunities.
-            </p>
+            <h2 className="text-2xl font-semibold">Made by Aditya Menon.</h2>
           </div>
-          <Link
-            to="/contact"
-            className="px-6 py-3 bg-white text-[#2c3e50] rounded font-medium hover:bg-gray-100"
-          >
-            Get in touch
-          </Link>
         </div>
       </section>
     </div>
