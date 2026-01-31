@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import { useAutoRefresh } from "../hooks/useSocket";
 
 
 const useAutoScroll = (
@@ -57,6 +58,39 @@ const HomePage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [events, setEvents] = useState([]);
   const [publications, setPublications] = useState([]);
+
+  // Fetch functions for auto-refresh
+  const fetchAnnouncements = useCallback(async () => {
+    try {
+      const res = await api.get("/api/announcements");
+      setAnnouncements(res.data);
+    } catch (err) {
+      console.error("Failed to fetch announcements", err);
+    }
+  }, []);
+
+  const fetchImages = useCallback(async () => {
+    try {
+      const res = await api.get("/api/key-moments");
+      setGalleryImages(res.data);
+    } catch (err) {
+      console.error("Failed to fetch images", err);
+    }
+  }, []);
+
+  const fetchEvents = useCallback(async () => {
+    try {
+      const res = await api.get("/api/events");
+      setEvents(res.data.slice(0, 2));
+    } catch (err) {
+      console.error("Failed to fetch events", err);
+    }
+  }, []);
+
+  // Auto-refresh when data is updated via WebSocket
+  useAutoRefresh('announcements', fetchAnnouncements);
+  useAutoRefresh('key-moments', fetchImages);
+  useAutoRefresh('events', fetchEvents);
 
   useAutoScroll(galleryRef, [galleryImages.length], { direction: "horizontal", delay: 3000 });
   useAutoScroll(announcementsRef, [announcements.length], { direction: "vertical", delay: 5000 });

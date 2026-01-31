@@ -14,6 +14,8 @@ exports.addAnnouncement = async (req, res) => {
       'INSERT INTO announcements (date, title, description) VALUES ($1, $2, $3) RETURNING *',
       [date, title, description]
     );
+    // Emit WebSocket event
+    req.app.get('io').emit('data-updated', { type: 'announcements' });
     res.status(201).json(newAnnouncement.rows[0]);
   } catch (err) { res.status(500).send('Server Error'); }
 };
@@ -21,6 +23,8 @@ exports.addAnnouncement = async (req, res) => {
 exports.deleteAnnouncement = async (req, res) => {
   try {
     await db.query('DELETE FROM announcements WHERE announcement_id = $1', [req.params.id]);
+    // Emit WebSocket event
+    req.app.get('io').emit('data-updated', { type: 'announcements' });
     res.json({ msg: 'Announcement removed' });
   } catch (err) { res.status(500).send('Server Error'); }
 };

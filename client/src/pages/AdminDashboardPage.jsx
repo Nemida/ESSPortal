@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
+import { useAutoRefresh } from '../hooks/useSocket';
 
 const AdminDashboardPage = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -8,20 +9,24 @@ const AdminDashboardPage = () => {
   const [images, setImages] = useState([]);
   const [newImage, setNewImage] = useState({ imageUrl: '', altText: '' });
 
-  const fetchAnnouncements = async () => {
+  const fetchAnnouncements = useCallback(async () => {
     const res = await api.get('/api/announcements');
     setAnnouncements(res.data);
-  };
+  }, []);
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     const res = await api.get('/api/key-moments');
     setImages(res.data);
-  };
+  }, []);
+
+  // Auto-refresh when data is updated via WebSocket
+  useAutoRefresh('announcements', fetchAnnouncements);
+  useAutoRefresh('key-moments', fetchImages);
 
   useEffect(() => {
     fetchAnnouncements();
     fetchImages();
-  }, []);
+  }, [fetchAnnouncements, fetchImages]);
 
   const handleAnnouncementInputChange = (e) => setNewAnnouncement({ ...newAnnouncement, [e.target.name]: e.target.value });
   const handleImageInputChange = (e) => setNewImage({ ...newImage, [e.target.name]: e.target.value });
