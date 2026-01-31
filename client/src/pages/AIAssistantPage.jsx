@@ -19,6 +19,17 @@ const AIAssistantPage = () => {
   const inputRef = useRef(null);
   const shouldAutoScroll = useRef(true);
 
+  // Scroll chat container to bottom (without affecting window scroll)
+  const scrollToBottom = (smooth = true) => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  };
+
   // Check if user is near the bottom of the chat
   const handleScroll = () => {
     const container = messagesContainerRef.current;
@@ -29,10 +40,15 @@ const AIAssistantPage = () => {
     shouldAutoScroll.current = isNearBottom;
   };
 
+  // Scroll to bottom on initial load (instant, no animation)
+  useEffect(() => {
+    scrollToBottom(false);
+  }, []);
+
   // Auto-scroll to bottom when new messages arrive (only if user hasn't scrolled up)
   useEffect(() => {
-    if (shouldAutoScroll.current && messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (shouldAutoScroll.current) {
+      scrollToBottom(true);
     }
   }, [messages]);
 
