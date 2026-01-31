@@ -202,7 +202,7 @@ const UpcomingEventsPage = () => {
                           </button>
                         )}
                         <img
-                          src={`/${event.image_url || '1.jpg'}`}
+                          src={event.image_url ? (event.image_url.startsWith('http') ? event.image_url : `/${event.image_url}`) : '/1.jpg'}
                           alt={event.title || 'Event image'}
                           className="w-full h-40 object-cover"
                           loading="lazy"

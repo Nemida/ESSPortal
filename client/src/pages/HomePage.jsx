@@ -103,7 +103,7 @@ const HomePage = () => {
                 className="min-w-full h-full flex-shrink-0 snap-start"
               >
                 <img
-                  src={`/${img.image_url}`}
+                  src={img.image_url.startsWith('http') ? img.image_url : `/${img.image_url}`}
                   alt={img.alt_text}
                   className="w-full h-full object-cover rounded"
                 />

@@ -75,7 +75,7 @@ const AdminDashboardPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {images.map(img => (
               <div key={img.image_id} className="relative">
-                <img src={`/${img.image_url}`} alt={img.alt_text} className="w-full h-32 object-cover rounded-md shadow-sm"/>
+                <img src={img.image_url.startsWith('http') ? img.image_url : `/${img.image_url}`} alt={img.alt_text} className="w-full h-32 object-cover rounded-md shadow-sm"/>
                 <button onClick={() => handleDeleteImage(img.image_id)} className="absolute top-1 right-1 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center font-bold text-sm hover:bg-red-700">&times;</button>
               </div>
             ))}
