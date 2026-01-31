@@ -7,19 +7,52 @@ A comprehensive web-based portal designed for internal organization management. 
 
 ## Features
 
-* **Role-Based Access Control:** Distinct dashboards for **Admins** (System Admin) and **Employees** (Scientists, Engineers).
-* **Form Management:** Digital submission for Annual Leave, IT Support, Travel Reimbursement, and more.
-* **Asset Management:** Track allocation and status of hardware (Laptops, Printers) and software licenses.
-* **Information Hub:** Centralized feed for Announcements, Events, Key Moments, and Research Publications.
-* **Grievance Redressal:** Ticketing system for facility and administrative issues.
-* **Project Tracking:** Overview of active defence and research projects.
+* **Role-Based Access Control**
+  * **Admin Dashboard:** Full system administration with user management, grievance inbox, and form submission reviews.
+  * **Employee Access:** Personal profile management, form submissions, and asset viewing.
+
+* **Form Management**
+  * Digital submission system for various organizational forms.
+  * Form tracking with submission status.
+  * Admin review and approval workflow.
+
+* **Asset Management**
+  * Track IT assets including hardware and software licenses.
+  * Asset allocation and assignment history.
+  * Employee asset viewing via `/my` endpoint for personal assets.
+
+* **Information Hub**
+  * **Announcements:** Organization-wide announcements management.
+  * **Events:** Event calendar and event details.
+  * **Publications:** Research publications repository.
+  * **Key Moments:** Image gallery for organizational highlights.
+
+* **Grievance Redressal**
+  * Secure grievance submission system.
+  * Admin grievance inbox for review and resolution.
+
+* **Project Tracking**
+  * Overview of active research projects.
+  * Project status management.
+
+* **AI Assistant**
+  * Integrated AI chat functionality.
+  * Grievance analysis (admin only).
+  * Form field suggestions.
+  * Dashboard insights generation.
+
+* **Real-Time Chat**
+  * Team communication feature.
 
 ## Tech Stack
 
-* **Frontend:** React / Next.js / Vite (Update this based on your actual framework)
-* **Styling:** Tailwind CSS / CSS Modules
-* **Backend & Database:** Supabase (PostgreSQL)
-* **Authentication:** Supabase Auth
+* **Frontend:** React with Vite
+* **Styling:** Tailwind CSS with PostCSS
+* **Backend:** Node.js with Express
+* **Database:** PostgreSQL
+* **Authentication:** JWT (JSON Web Tokens)
+* **AI Integration:** Hugging Face API (Llama 3)
+* **Deployment:** Vercel (client) / Render (server)
 
 ## Getting Started
 
@@ -27,28 +60,67 @@ A comprehensive web-based portal designed for internal organization management. 
 
 * Node.js (v16 or higher)
 * npm or yarn
-* A [Supabase](https://supabase.com/) project
+* PostgreSQL database (local or hosted)
 
 ### Installation
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    cd your-repo-name
+    git clone https://github.com/your-username/ess-portal.git
+    cd ess-portal
     ```
 
 2.  **Install dependencies**
     ```bash
-    npm install
+    # Install client dependencies
+    cd client && npm install
+
+    # Install server dependencies
+    cd ../server && npm install
     ```
 
 3.  **Configure Environment Variables**
-    Create a `.env` file in the root directory and add your Supabase credentials:
+
+    **Server (`server/.env`):**
     ```env
-    VITE_SUPABASE_URL=your_project_url
-    VITE_SUPABASE_ANON_KEY=your_anon_key
+    NODE_ENV=development
+    DATABASE_URL=postgresql://username:password@localhost:5432/ess_portal
+    JWT_SECRET=your_jwt_secret_key
+    CLIENT_ORIGIN=http://localhost:5173
+    HF_API_KEY=your_huggingface_api_key
     ```
-Note: When setting up Vercel and Render in a monorepo configuration, set the project root in Vercel to the client folder. Ensure that environment variables are configured to dynamically select the appropriate database URL: use your local database (localhost) in development, and use Supabase/Render in production. Also, the hashing for passwords should be done using the hashGenerator.js in server directory.
+
+    **Client (`client/.env`):**
+    ```env
+    VITE_API_URL=http://localhost:5000
+    ```
+
+4.  **Start the development servers**
+    ```bash
+    # Start the backend server (from server directory)
+    npm start
+
+    # Start the frontend (from client directory, in a new terminal)
+    npm run dev
+    ```
+
+### Deployment Configuration
+
+**Vercel (Frontend):**
+- Set the project root directory to `client`
+- Add environment variable:
+  - `VITE_API_URL` = Your Render backend URL (e.g., `https://your-app.onrender.com`)
+
+**Render (Backend):**
+- Set the root directory to `server`
+- Add environment variables:
+  - `NODE_ENV` = `production`
+  - `DATABASE_URL` = Your PostgreSQL connection string
+  - `JWT_SECRET` = Your secure JWT secret
+  - `CLIENT_ORIGIN` = Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
+  - `HF_API_KEY` = Your Hugging Face API key for AI features
+
+> **Note:** Password hashing can be done using `hashGenerator.js` in the server directory. All seeded users have the password "password".
 
 ### 🗄️ Database Setup
 

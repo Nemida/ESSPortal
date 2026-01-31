@@ -312,7 +312,7 @@ const HomePage = () => {
       <section className="rounded p-4 sm:p-6 bg-gradient-to-r from-[#2c3e50] to-[#34495e] text-white">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6">
           <div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-center lg:text-left">Made by Aditya Menon.</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-center lg:text-left">Made with love by Nemida.</h2>
           </div>
         </div>
       </section>
