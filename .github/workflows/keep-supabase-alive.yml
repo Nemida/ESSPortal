@@ -1,0 +1,25 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs every 5 days at midnight UTC
+    # Supabase pauses after 7 days of inactivity, so 5 days gives us a buffer
+    - cron: '0 0 */5 * *'
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Supabase Database
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          # Install PostgreSQL client
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          
+          # Simple query to keep the database active
+          psql "$DATABASE_URL" -c "SELECT 1 as keepalive, NOW() as ping_time;"
+          
+          echo "Successfully pinged Supabase database to prevent inactivity pause"
