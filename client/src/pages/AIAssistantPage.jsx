@@ -15,7 +15,26 @@ const AIAssistantPage = () => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
+  const shouldAutoScroll = useRef(true);
+
+  // Check if user is near the bottom of the chat
+  const handleScroll = () => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+    shouldAutoScroll.current = isNearBottom;
+  };
+
+  // Auto-scroll to bottom when new messages arrive (only if user hasn't scrolled up)
+  useEffect(() => {
+    if (shouldAutoScroll.current && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   // Quick action suggestions
   const quickActions = [
@@ -173,7 +192,11 @@ const AIAssistantPage = () => {
         </div>
 
         {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div 
+          ref={messagesContainerRef}
+          onScroll={handleScroll}
+          className="flex-1 overflow-y-auto p-4 space-y-4"
+        >
           {messages.map((message, idx) => (
             <div
               key={idx}
