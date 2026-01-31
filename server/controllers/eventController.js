@@ -21,7 +21,6 @@ exports.addEvent = async (req, res) => {
       'INSERT INTO events (event_date, day, month, title, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [event_date, day, month, title, description]
     );
-    // Emit WebSocket event
     req.app.get('io').emit('data-updated', { type: 'events' });
     res.status(201).json(newEvent.rows[0]);
   } catch (err) {
@@ -34,7 +33,6 @@ exports.deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
     await db.query('DELETE FROM events WHERE event_id = $1', [id]);
-    // Emit WebSocket event
     req.app.get('io').emit('data-updated', { type: 'events' });
     res.json({ msg: 'Event removed' });
   } catch (err) {

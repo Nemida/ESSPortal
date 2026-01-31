@@ -37,10 +37,10 @@ const FormsPage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b pb-4 mb-6">
-          <h1 className="text-3xl font-bold text-[#2c3e50]">Employee Forms Portal</h1>
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b pb-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#2c3e50]">Employee Forms Portal</h1>
           <div className="relative w-full md:w-80">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
             <input
@@ -62,10 +62,9 @@ const FormsPage = () => {
           <FilterButton category="Procurement" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredForms.length > 0 ? (
             filteredForms.map((form) => {
-              // Map badge colors to Tailwind classes
               const badgeColorMap = {
                 green: 'bg-green-500',
                 blue: 'bg-blue-500',

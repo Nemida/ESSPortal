@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/useAuth.js';
+import { useAutoRefresh } from '../hooks/useSocket';
 
 const initialForm = { day: '', month: '', title: '', description: '', event_date: '' };
 
@@ -50,6 +51,9 @@ const UpcomingEventsPage = () => {
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
+
+  // Listen for real-time updates
+  useAutoRefresh('events', fetchEvents);
 
   const { upcomingEvents, pastEvents } = useMemo(() => {
     const today = normalizeToStartOfDay(new Date());
@@ -114,10 +118,10 @@ const UpcomingEventsPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Events</h1>
-        <p className="mt-4 text-gray-700">
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 border-b pb-4">Events</h1>
+        <p className="mt-4 text-sm sm:text-base text-gray-700">
           DRDO convenes thought leadership through symposiums, technology demonstrations, and industry partnerships.
         </p>
 
@@ -131,19 +135,19 @@ const UpcomingEventsPage = () => {
           <div className="mt-8 text-gray-600">Loading events…</div>
         ) : (
           <>
-            <section className="mt-8">
-              <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Upcoming Events</h2>
+            <section className="mt-6 sm:mt-8">
+              <h2 className="text-xl sm:text-2xl font-semibold text-[#2c3e50] mb-4 sm:mb-6">Upcoming Events</h2>
               {upcomingEvents.length === 0 ? (
                 <EmptyState
                   title="No upcoming events"
                   subtitle="Check back soon or explore the past events gallery below."
                 />
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {upcomingEvents.map((event) => (
                     <div
                       key={event.event_id}
-                      className="flex bg-white rounded-lg shadow overflow-hidden border relative"
+                      className="flex flex-col sm:flex-row bg-white rounded-lg shadow overflow-hidden border relative"
                     >
                       {isAdmin && (
                         <button
@@ -154,12 +158,12 @@ const UpcomingEventsPage = () => {
                           &times;
                         </button>
                       )}
-                      <div className="bg-[#2c3e50] text-white p-5 min-w-[90px] text-center flex flex-col justify-center">
-                        <span className="block text-3xl font-bold">{event.day}</span>
-                        <span className="block -mt-1">{event.month}</span>
+                      <div className="bg-[#2c3e50] text-white p-4 sm:p-5 sm:min-w-[90px] text-center flex flex-row sm:flex-col justify-center items-center gap-2 sm:gap-0">
+                        <span className="text-2xl sm:text-3xl font-bold">{event.day}</span>
+                        <span className="sm:-mt-1">{event.month}</span>
                       </div>
-                      <div className="p-5 flex-1">
-                        <h3 className="font-semibold text-xl text-gray-800">{event.title}</h3>
+                      <div className="p-4 sm:p-5 flex-1">
+                        <h3 className="font-semibold text-lg sm:text-xl text-gray-800">{event.title}</h3>
                         <p className="text-gray-600 mt-1">{event.description}</p>
                         <a
                           href="#"
@@ -175,8 +179,8 @@ const UpcomingEventsPage = () => {
             </section>
 
            
-            <section className="mt-12">
-              <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Past Events Gallery</h2>
+            <section className="mt-8 sm:mt-12">
+              <h2 className="text-xl sm:text-2xl font-semibold text-[#2c3e50] mb-4 sm:mb-6">Past Events Gallery</h2>
               {pastEvents.length === 0 ? (
                 <EmptyState
                   title="No past events yet"
@@ -221,11 +225,11 @@ const UpcomingEventsPage = () => {
         )}
 
         {isAdmin && (
-          <section className="mt-12 border-t pt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Add New Event</h2>
+          <section className="mt-8 sm:mt-12 border-t pt-6 sm:pt-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Add New Event</h2>
             <form
               onSubmit={handleAddEvent}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-6 rounded-lg border"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 sm:p-6 rounded-lg border"
             >
               <input
                 type="date"

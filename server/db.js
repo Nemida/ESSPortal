@@ -1,18 +1,14 @@
-
 const { Pool } = require('pg');
 
-console.log('DATABASE_URL found:', process.env.DATABASE_URL);
-
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
 
 const testConnection = async () => {
   try {
     const client = await pool.connect();
-    console.log('🐘 Connected to the PostgreSQL database!');
+    console.log('Connected to PostgreSQL database');
     client.release(); 
   } catch (err) {
-    console.error('DATABASE CONNECTION FAILED:', err.stack);
+    console.error('Database connection failed:', err.stack);
   }
 };
 

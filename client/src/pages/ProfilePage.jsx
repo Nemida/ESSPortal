@@ -39,10 +39,10 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-[#2c3e50] border-b pb-4">My Profile</h1>
-        <p className="mt-4 text-gray-600">Update your job title and department information. Other details are managed by HR.</p>
+    <div className="max-w-4xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#2c3e50] border-b pb-4">My Profile</h1>
+        <p className="mt-4 text-sm sm:text-base text-gray-600">Update your job title and department information. Other details are managed by HR.</p>
         <form onSubmit={handleUpdateProfile} className="mt-6 space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-500">First Name</label>

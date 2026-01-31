@@ -59,7 +59,6 @@ const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [publications, setPublications] = useState([]);
 
-  // Fetch functions for auto-refresh
   const fetchAnnouncements = useCallback(async () => {
     try {
       const res = await api.get("/api/announcements");
@@ -96,7 +95,6 @@ const HomePage = () => {
     }
   }, []);
 
-  // Auto-refresh when data is updated via WebSocket
   useAutoRefresh('announcements', fetchAnnouncements);
   useAutoRefresh('key-moments', fetchImages);
   useAutoRefresh('events', fetchEvents);
@@ -128,12 +126,12 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex flex-col gap-8 font-sans">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 flex flex-col gap-6 sm:gap-8 font-sans">
   
       <div className="flex flex-col lg:flex-row gap-6">
         
    
-        <section className="flex-1 bg-white rounded shadow p-4 relative h-[380px]">
+        <section className="flex-1 bg-white rounded shadow p-4 relative h-[280px] sm:h-[380px]">
           <h2 className="text-lg font-semibold border-b pb-2 mb-3 text-[#2c3e50]">
             Key Moments
           </h2>
@@ -157,7 +155,7 @@ const HomePage = () => {
         </section>
 
     
-        <section className="flex-1 bg-white rounded shadow p-4 h-[380px] overflow-hidden">
+        <section className="flex-1 bg-white rounded shadow p-4 h-[280px] sm:h-[380px] overflow-hidden">
           <h2 className="text-lg font-semibold border-b pb-2 mb-3 text-[#2c3e50]">
             Announcements
           </h2>
@@ -179,7 +177,7 @@ const HomePage = () => {
         </section>
 
      
-        <section className="flex-1 bg-white rounded shadow p-4 h-[380px] overflow-y-auto">
+        <section className="flex-1 bg-white rounded shadow p-4 h-auto sm:h-[380px] overflow-y-auto">
           <h2 className="text-lg font-semibold border-b pb-2 mb-3 text-[#2c3e50]">
             Services
           </h2>
@@ -207,10 +205,10 @@ const HomePage = () => {
       </div>
 
    
-      <section className="bg-white rounded shadow p-6">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+      <section className="bg-white rounded shadow p-4 sm:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <div>
-            <h2 className="text-2xl font-semibold text-[#2c3e50]">
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#2c3e50]">
               About DRDO — Scientific Analysis Group
             </h2>
             <p className="mt-3 text-gray-700">
@@ -311,10 +309,10 @@ const HomePage = () => {
       </section>
 
 
-      <section className="rounded p-6 bg-gradient-to-r from-[#2c3e50] to-[#34495e] text-white">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+      <section className="rounded p-4 sm:p-6 bg-gradient-to-r from-[#2c3e50] to-[#34495e] text-white">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6">
           <div>
-            <h2 className="text-2xl font-semibold">Made by Aditya Menon.</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-center lg:text-left">Made by Aditya Menon.</h2>
           </div>
         </div>
       </section>

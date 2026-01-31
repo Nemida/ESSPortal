@@ -47,11 +47,11 @@ const UserManagementPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <section className="bg-white p-8 rounded-lg shadow-md">
-        <div className="flex justify-between items-center border-b pb-4">
-          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-          <button onClick={() => setIsAdding(!isAdding)} className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      <section className="bg-white p-4 sm:p-8 rounded-lg shadow-md">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">User Management</h1>
+          <button onClick={() => setIsAdding(!isAdding)} className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
             {isAdding ? 'Cancel' : 'Add New User'}
           </button>
         </div>
@@ -75,29 +75,31 @@ const UserManagementPage = () => {
           </div>
         )}
 
-        <div className="mt-6 overflow-x-auto">
-          <table className="min-w-full">
-            <thead className="bg-gray-800 text-white">
-              <tr>
-                <th className="px-6 py-3 text-left font-semibold">Name</th>
-                <th className="px-6 py-3 text-left font-semibold">Email</th>
-                <th className="px-6 py-3 text-left font-semibold">Role</th>
-                <th className="px-6 py-3 text-left font-semibold">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {users.map(user => (
-                <tr key={user.user_id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">{user.first_name} {user.last_name}</td>
-                  <td className="px-6 py-4">{user.email}</td>
-                  <td className="px-6 py-4 capitalize">{user.role}</td>
-                  <td className="px-6 py-4">
-                    <button onClick={() => handleDeleteUser(user.user_id)} className="text-red-600 hover:underline font-semibold">Delete</button>
+        <div className="mt-6 overflow-x-auto -mx-4 sm:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <table className="min-w-full">
+              <thead className="bg-gray-800 text-white">
+                <tr>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Name</th>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Email</th>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Role</th>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {users.map(user => (
+                  <tr key={user.user_id} className="hover:bg-gray-50">
+                    <td className="px-4 sm:px-6 py-4 text-sm">{user.first_name} {user.last_name}</td>
+                    <td className="px-4 sm:px-6 py-4 text-sm break-all">{user.email}</td>
+                    <td className="px-4 sm:px-6 py-4 capitalize text-sm">{user.role}</td>
+                    <td className="px-4 sm:px-6 py-4">
+                      <button onClick={() => handleDeleteUser(user.user_id)} className="text-red-600 hover:underline font-semibold text-sm">Delete</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </section>
     </div>

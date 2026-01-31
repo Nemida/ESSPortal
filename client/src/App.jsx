@@ -24,14 +24,14 @@ import UserManagementPage from './pages/UserManagementPage';
 import AssetManagementPage from './pages/AssetManagementPage';
 import AdminGrievancesPage from './pages/AdminGrievancesPage';
 import AdminSubmissionsPage from './pages/AdminSubmissionsPage';
+import AIAssistantPage from './pages/AIAssistantPage';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   return (
     <Routes>
-      {/* public */}
       <Route path="/login" element={<LoginPage />} />
 
-      {/* logged in */}
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUsPage />} />
@@ -45,8 +45,9 @@ function App() {
         <Route path="/assets" element={<AssetsPage />} />
         <Route path="/grievance" element={<GrievancePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/ai-assistant" element={<AIAssistantPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         
-        {/* admin */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><UserManagementPage /></AdminRoute>} />
         <Route path="/admin/assets" element={<AdminRoute><AssetManagementPage /></AdminRoute>} />

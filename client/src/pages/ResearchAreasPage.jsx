@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth.js';
 import api from '../services/api';
+import { useAutoRefresh } from '../hooks/useSocket';
 const ResearchCard = ({ title, description, link, bgColor }) => (
   <div className={`relative p-6 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl ${bgColor}`}>
     <div className="relative z-10">
@@ -23,7 +24,7 @@ const ResearchAreasPage = () => {
 
     const [newProject, setNewProject] = useState({ projectName: '', description: '', status: '' });
 
-    const fetchProjects = async () => {
+    const fetchProjects = useCallback(async () => {
         try {
         const res = await api.get('/api/projects');
         setProjects(res.data);
@@ -32,11 +33,14 @@ const ResearchAreasPage = () => {
         } finally {
         setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchProjects();
-    }, []);
+    }, [fetchProjects]);
+
+    // Listen for real-time updates from other users
+    useAutoRefresh('projects', fetchProjects);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -68,16 +72,16 @@ const ResearchAreasPage = () => {
     };
 
     return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white p-8 rounded-lg shadow-md">
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md">
     
-        <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Research Areas</h1>
-        <p className="mt-4 text-gray-700">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 border-b pb-4">Research Areas</h1>
+        <p className="mt-4 text-sm sm:text-base text-gray-700">
           DRDO spearheads transformative research across critical defense domains. Our current focus areas include hypersonic technologies, quantum computing applications for cybersecurity, artificial intelligence in unmanned systems, and next-generation armor materials.
         </p>
 
-        <section className="mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="mt-6 sm:mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <ResearchCard
               title="Aeronautics"
               description="Developing advanced aircraft and UAVs."
@@ -105,16 +109,16 @@ const ResearchAreasPage = () => {
           </div>
         </section>
 
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Major Projects</h2>
-          <div className="overflow-x-auto border rounded-lg">
+        <section className="mt-8 sm:mt-12">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Current Major Projects</h2>
+          <div className="overflow-x-auto border rounded-lg -mx-4 sm:mx-0">
             <table className="min-w-full text-left">
               <thead className="bg-gray-800 text-white">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">Project</th>
-                  <th className="px-6 py-3 font-semibold">Description</th>
-                  <th className="px-6 py-3 font-semibold">Status</th>
-                  {isAdmin && <th className="px-6 py-3 font-semibold">Actions</th>}
+                  <th className="px-4 sm:px-6 py-3 font-semibold text-sm">Project</th>
+                  <th className="px-4 sm:px-6 py-3 font-semibold text-sm hidden sm:table-cell">Description</th>
+                  <th className="px-4 sm:px-6 py-3 font-semibold text-sm">Status</th>
+                  {isAdmin && <th className="px-4 sm:px-6 py-3 font-semibold text-sm">Actions</th>}
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -123,14 +127,14 @@ const ResearchAreasPage = () => {
                 ) : (
                   projects.map(project => (
                     <tr key={project.project_id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 font-medium text-gray-900">{project.project_name}</td>
-                      <td className="px-6 py-4 text-gray-600">{project.description}</td>
-                      <td className="px-6 py-4 text-gray-600">{project.status}</td>
+                      <td className="px-4 sm:px-6 py-4 font-medium text-gray-900 text-sm">{project.project_name}</td>
+                      <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm hidden sm:table-cell">{project.description}</td>
+                      <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm">{project.status}</td>
                       {isAdmin && (
-                        <td className="px-6 py-4">
+                        <td className="px-4 sm:px-6 py-4">
                           <button 
                             onClick={() => handleDeleteProject(project.project_id)} 
-                            className="text-red-500 hover:text-red-700 font-semibold"
+                            className="text-red-500 hover:text-red-700 font-semibold text-sm"
                           >
                             Delete
                           </button>
@@ -146,22 +150,22 @@ const ResearchAreasPage = () => {
 
 
         {isAdmin && (
-          <section className="mt-12 border-t pt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Add New Project</h2>
-            <form onSubmit={handleAddProject} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-              <div className="md:col-span-1">
+          <section className="mt-8 sm:mt-12 border-t pt-6 sm:pt-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Add New Project</h2>
+            <form onSubmit={handleAddProject} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <div>
                 <label className="block text-sm font-medium text-gray-700">Project Name</label>
                 <input type="text" name="projectName" value={newProject.projectName} onChange={handleInputChange} required className="mt-1 p-2 w-full border rounded-md" />
               </div>
-              <div className="md:col-span-1">
+              <div>
                 <label className="block text-sm font-medium text-gray-700">Description</label>
                 <input type="text" name="description" value={newProject.description} onChange={handleInputChange} required className="mt-1 p-2 w-full border rounded-md" />
               </div>
-              <div className="md:col-span-1">
+              <div>
                 <label className="block text-sm font-medium text-gray-700">Status</label>
                 <input type="text" name="status" value={newProject.status} onChange={handleInputChange} required className="mt-1 p-2 w-full border rounded-md" />
               </div>
-              <div className="md:col-span-1">
+              <div>
                 <button type="submit" className="w-full bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-700">Add Project</button>
               </div>
             </form>

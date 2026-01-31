@@ -49,6 +49,12 @@ exports.addAsset = async (req, res) => {
         await db.query("UPDATE it_assets SET status = 'Assigned' WHERE asset_id = $1", [createdAsset.asset_id]);
       }
     }
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'assets' });
+    }
+    
     res.status(201).json(createdAsset);
   } catch (err) {
     console.error(err.message);
@@ -60,6 +66,12 @@ exports.deleteAsset = async (req, res) => {
   try {
     await db.query('DELETE FROM asset_allocations WHERE asset_id = $1', [req.params.id]);
     await db.query('DELETE FROM it_assets WHERE asset_id = $1', [req.params.id]);
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'assets' });
+    }
+    
     res.json({ msg: 'Asset removed' });
   } catch (err) {
     console.error(err.message);
@@ -78,6 +90,12 @@ exports.assignAsset = async (req, res) => {
 
     await db.query('INSERT INTO asset_allocations (asset_id, user_id, is_active) VALUES ($1, $2, true)', [assetId, userId]);
     await db.query("UPDATE it_assets SET status = 'Assigned' WHERE asset_id = $1", [assetId]);
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'assets' });
+    }
+    
     res.status(200).json({ msg: 'Asset assigned successfully' });
   } catch (err) {
     console.error(err.message);
@@ -102,6 +120,12 @@ exports.unassignAsset = async (req, res) => {
     }
     
     await db.query("UPDATE it_assets SET status = 'Available' WHERE asset_id = $1", [assetId]);
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'assets' });
+    }
+    
     res.status(200).json({ msg: 'Asset unassigned successfully' });
   } catch (err) {
     console.error(err.message);

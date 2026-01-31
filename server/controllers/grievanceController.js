@@ -10,6 +10,12 @@ exports.submitGrievance = async (req, res) => {
       'INSERT INTO grievances (user_id, grievance_subject, grievance_details) VALUES ($1, $2, $3)',
       [userId, subject, details]
     );
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'grievances' });
+    }
+    
     res.status(201).json({ msg: 'Grievance submitted successfully.' });
   } catch (err) {
     console.error(err.message);

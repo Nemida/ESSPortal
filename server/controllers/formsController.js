@@ -31,6 +31,12 @@ exports.submitForm = async (req, res) => {
       'INSERT INTO form_submissions (form_id, user_id, submission_data) VALUES ($1, $2, $3)',
       [formId, userId, submissionData]
     );
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'submissions' });
+    }
+    
     res.status(201).json({ msg: 'Form submitted successfully!' });
   } catch (err) {
     console.error(err.message);

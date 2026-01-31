@@ -73,13 +73,13 @@ const PublicationsPage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-            <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Our Publications</h1>
-            <p className="mt-4 text-gray-700">Explore our peer-reviewed journals, technical reports, and conference proceedings.</p>
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+        <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 border-b pb-4">Our Publications</h1>
+            <p className="mt-4 text-sm sm:text-base text-gray-700">Explore our peer-reviewed journals, technical reports, and conference proceedings.</p>
 
-        <section className="mt-8">
-          <div className="flex space-x-2 mb-8">
+        <section className="mt-6 sm:mt-8">
+          <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
             <FilterButton type="All" />
             <FilterButton type="Report" />
             <FilterButton type="Journal" />

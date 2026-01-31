@@ -18,15 +18,15 @@ const ContactCard = ({ title, person, phone, hours }) => (
 
 const ContactUsPage = () => {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-900 border-b pb-4">Internal Directory</h1>
-        <p className="mt-4 text-gray-600">Find contact information for key personnel and departments within the organization.</p>
+    <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 border-b pb-4">Internal Directory</h1>
+        <p className="mt-4 text-sm sm:text-base text-gray-600">Find contact information for key personnel and departments within the organization.</p>
 
 
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Key Contacts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="mt-6 sm:mt-8">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#2c3e50] mb-4 sm:mb-6">Key Contacts</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <ContactCard 
               title="IT Help Desk"
               person="Mr. Sharma (Lead)"
@@ -49,32 +49,32 @@ const ContactUsPage = () => {
         </section>
 
   
-        <section className="mt-12">
-          <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Department Directory</h2>
-          <div className="overflow-x-auto border rounded-lg">
+        <section className="mt-8 sm:mt-12">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#2c3e50] mb-4 sm:mb-6">Department Directory</h2>
+          <div className="overflow-x-auto border rounded-lg -mx-4 sm:mx-0">
             <table className="min-w-full">
               <thead className="bg-gray-800 text-white">
                 <tr>
-                  <th className="px-6 py-3 text-left font-semibold">Department / Lab</th>
-                  <th className="px-6 py-3 text-left font-semibold">Landline Extension</th>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Department / Lab</th>
+                  <th className="px-4 sm:px-6 py-3 text-left font-semibold text-sm">Landline Extension</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-800">Aeronautics Division</td>
-                  <td className="px-6 py-4 text-gray-600">2201, 2205</td>
+                  <td className="px-4 sm:px-6 py-4 font-medium text-gray-800 text-sm">Aeronautics Division</td>
+                  <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm">2201, 2205</td>
                 </tr>
                 <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-800">Electronics Lab</td>
-                  <td className="px-6 py-4 text-gray-600">3450, 3451</td>
+                  <td className="px-4 sm:px-6 py-4 font-medium text-gray-800 text-sm">Electronics Lab</td>
+                  <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm">3450, 3451</td>
                 </tr>
                 <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-800">Finance & Accounts</td>
-                  <td className="px-6 py-4 text-gray-600">5510, 5512</td>
+                  <td className="px-4 sm:px-6 py-4 font-medium text-gray-800 text-sm">Finance & Accounts</td>
+                  <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm">5510, 5512</td>
                 </tr>
                 <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-800">Security Office</td>
-                  <td className="px-6 py-4 text-gray-600">100 (Emergency)</td>
+                  <td className="px-4 sm:px-6 py-4 font-medium text-gray-800 text-sm">Security Office</td>
+                  <td className="px-4 sm:px-6 py-4 text-gray-600 text-sm">100 (Emergency)</td>
                 </tr>
               </tbody>
             </table>

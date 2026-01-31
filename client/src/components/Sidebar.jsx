@@ -37,6 +37,10 @@ const Sidebar = () => {
           <Icon className="bg-red-400" /> 
           <span className="ml-4">Grievance</span>
         </NavLink>
+        <NavLink to="/ai-assistant" className={navLinkClasses}>
+          <Icon className="bg-purple-400" /> 
+          <span className="ml-4">🤖 AI Assistant</span>
+        </NavLink>
 
       </nav>
       <div className="pt-4 mt-auto border-t border-gray-700">

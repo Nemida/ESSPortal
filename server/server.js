@@ -8,19 +8,16 @@ const app = express();
 const server = http.createServer(app);
 
 // Build allowed origins array
-const allowedOrigins = [];
+const allowedOrigins = [
+  'http://localhost:5173',  // Vite dev server
+  'http://localhost:3000',  // Alternative local dev
+];
 
 // Add production origin if set
 if (process.env.CLIENT_ORIGIN) {
   allowedOrigins.push(process.env.CLIENT_ORIGIN);
 }
 
-// Add localhost for development
-if (process.env.NODE_ENV !== 'production') {
-  allowedOrigins.push('http://localhost:5173');
-}
-
-// Socket.IO setup
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
@@ -29,26 +26,63 @@ const io = new Server(server, {
   }
 });
 
-// Make io available to routes/controllers
 app.set('io', io);
 
+const connectedUsers = new Map();
+const chatHistory = [];
+const MAX_HISTORY = 100;
+
 io.on('connection', (socket) => {
-  console.log('🔌 Client connected:', socket.id);
+  
+  socket.on('user-join', (userData) => {
+    connectedUsers.set(socket.id, userData);
+    
+    socket.emit('chat-history', chatHistory);
+    io.emit('users-online', Array.from(connectedUsers.values()));
+  });
+  
+  socket.on('chat-message', (messageData) => {
+    const user = connectedUsers.get(socket.id);
+    if (user) {
+      const message = {
+        id: Date.now(),
+        user_id: user.user_id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        role: user.role,
+        content: messageData.content,
+        timestamp: new Date().toISOString(),
+      };
+      
+      chatHistory.push(message);
+      if (chatHistory.length > MAX_HISTORY) {
+        chatHistory.shift();
+      }
+      
+      io.emit('new-message', message);
+    }
+  });
+  
+  socket.on('typing', (isTyping) => {
+    const user = connectedUsers.get(socket.id);
+    if (user) {
+      socket.broadcast.emit('user-typing', { user, isTyping });
+    }
+  });
   
   socket.on('disconnect', () => {
-    console.log('🔌 Client disconnected:', socket.id);
+    connectedUsers.delete(socket.id);
+    io.emit('users-online', Array.from(connectedUsers.values()));
   });
 });
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or Postman)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      console.log('Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -71,6 +105,7 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/announcements', require('./routes/announcements'));
 app.use('/api/key-moments', require('./routes/keyMoments'));
+app.use('/api/ai', require('./routes/ai'));
 
 
 const PORT = process.env.PORT || 5000;

@@ -52,24 +52,18 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   
-  // Debug logging
-  console.log('Login attempt for email:', email);
-  
   if (!email || !password) {
-    console.log('Missing email or password');
     return res.status(400).json({ msg: 'Email and password are required' });
   }
   
   try {
     const userResult = await db.query('SELECT * FROM users WHERE email = $1', [email]);
     if (userResult.rows.length === 0) {
-      console.log('No user found with email:', email);
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
     const user = userResult.rows[0];
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
-      console.log('Password mismatch for user:', email);
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
     

@@ -19,6 +19,12 @@ exports.addProject = async (req, res) => {
       'INSERT INTO projects (project_name, description, status) VALUES ($1, $2, $3) RETURNING *',
       [projectName, description, status]
     );
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'projects' });
+    }
+    
     res.status(201).json(newProject.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -31,6 +37,12 @@ exports.deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
     await db.query('DELETE FROM projects WHERE project_id = $1', [id]);
+    
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('data-updated', { type: 'projects' });
+    }
+    
     res.json({ msg: 'Project removed' });
   } catch (err) {
     console.error(err.message);

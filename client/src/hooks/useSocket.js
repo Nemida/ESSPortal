@@ -1,52 +1,56 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-// Create socket connection
-const socket = io(import.meta.env.VITE_API_URL, {
+const SOCKET_URL = import.meta.env.VITE_API_URL?.replace(/\/api\/?$/, '') || 'http://localhost:5000';
+
+const socket = io(SOCKET_URL, {
   autoConnect: true,
   reconnection: true,
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
+  transports: ['websocket', 'polling'],
 });
 
-// Log connection status
-socket.on('connect', () => {
-  console.log('🔌 Connected to server');
-});
-
-socket.on('disconnect', () => {
-  console.log('🔌 Disconnected from server');
-});
-
-/**
- * Hook to listen for socket events
- * @param {string} event - Event name to listen for
- * @param {function} callback - Callback to execute when event is received
- */
 export const useSocket = (event, callback) => {
-  const memoizedCallback = useCallback(callback, [callback]);
+  const callbackRef = useRef(callback);
+  
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
 
   useEffect(() => {
-    socket.on(event, memoizedCallback);
+    const handler = (data) => callbackRef.current(data);
+    socket.on(event, handler);
     
     return () => {
-      socket.off(event, memoizedCallback);
+      socket.off(event, handler);
     };
-  }, [event, memoizedCallback]);
+  }, [event]);
 };
 
-/**
- * Hook to auto-refresh data when a specific data type is updated
- * @param {string} dataType - Type of data to watch (e.g., 'announcements', 'events')
- * @param {function} fetchFunction - Function to call to refresh data
- */
 export const useAutoRefresh = (dataType, fetchFunction) => {
-  useSocket('data-updated', (data) => {
-    if (data.type === dataType) {
-      console.log(`🔄 Auto-refreshing ${dataType}`);
-      fetchFunction();
-    }
-  });
+  const fetchRef = useRef(fetchFunction);
+  
+  useEffect(() => {
+    fetchRef.current = fetchFunction;
+  }, [fetchFunction]);
+
+  useEffect(() => {
+    const handler = (data) => {
+      if (data.type === dataType) {
+        fetchRef.current();
+      }
+    };
+    
+    socket.on('data-updated', handler);
+    
+    return () => {
+      socket.off('data-updated', handler);
+    };
+  }, [dataType]);
 };
+
+// Export socket instance for direct access if needed
+export { socket };
 
 export default socket;
