@@ -3,7 +3,7 @@ const db = require('../db');
 
 exports.getPublications = async (req, res) => {
   try {
-    const publications = await db.query('SELECT * FROM publications ORDER BY created_at DESC');
+    const publications = await db.query('SELECT * FROM publications ORDER BY publication_id DESC');
     res.json(publications.rows);
   } catch (err) {
     console.error(err.message);

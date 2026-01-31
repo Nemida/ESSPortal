@@ -2,7 +2,7 @@ const db = require('../db');
 
 exports.getImages = async (req, res) => {
   try {
-    const images = await db.query('SELECT * FROM key_moments ORDER BY created_at DESC');
+    const images = await db.query('SELECT * FROM key_moments ORDER BY image_id DESC');
     res.json(images.rows);
   } catch (err) { res.status(500).send('Server Error'); }
 };
