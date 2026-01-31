@@ -87,10 +87,20 @@ const HomePage = () => {
     }
   }, []);
 
+  const fetchPublications = useCallback(async () => {
+    try {
+      const res = await api.get("/api/publications");
+      setPublications(res.data.slice(0, 3));
+    } catch (err) {
+      console.error("Failed to fetch publications", err);
+    }
+  }, []);
+
   // Auto-refresh when data is updated via WebSocket
   useAutoRefresh('announcements', fetchAnnouncements);
   useAutoRefresh('key-moments', fetchImages);
   useAutoRefresh('events', fetchEvents);
+  useAutoRefresh('publications', fetchPublications);
 
   useAutoScroll(galleryRef, [galleryImages.length], { direction: "horizontal", delay: 3000 });
   useAutoScroll(announcementsRef, [announcements.length], { direction: "vertical", delay: 5000 });

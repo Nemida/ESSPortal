@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/useAuth.js';
+import { useAutoRefresh } from '../hooks/useSocket';
 
 const DownloadIcon = () => (
   <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -15,7 +16,7 @@ const PublicationsPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [newPub, setNewPub] = useState({ type: 'Journal', title: '', meta: '', description: '', pdf_link: '' });
 
-  const fetchPublications = async () => {
+  const fetchPublications = useCallback(async () => {
     try {
       const res = await api.get('/api/publications');
       setAllPublications(res.data);
@@ -24,11 +25,14 @@ const PublicationsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Auto-refresh when publications are updated via WebSocket
+  useAutoRefresh('publications', fetchPublications);
 
   useEffect(() => {
     fetchPublications();
-  }, []);
+  }, [fetchPublications]);
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
