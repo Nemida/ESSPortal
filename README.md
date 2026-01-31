@@ -115,7 +115,7 @@ A comprehensive web-based portal designed for internal organization management. 
 - Set the root directory to `server`
 - Add environment variables:
   - `NODE_ENV` = `production`
-  - `DATABASE_URL` = Your PostgreSQL connection string
+  - `DATABASE_URL` = Your PostgreSQL connection string(transaction pooler)
   - `JWT_SECRET` = Your secure JWT secret
   - `CLIENT_ORIGIN` = Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
   - `HF_API_KEY` = Your Hugging Face API key for AI features
