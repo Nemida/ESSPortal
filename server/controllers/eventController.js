@@ -2,7 +2,7 @@ const db = require('../db');
 
 exports.getEvents = async (req, res) => {
   try {
-    const events = await db.query('SELECT * FROM events ORDER BY created_at DESC');
+    const events = await db.query('SELECT * FROM events ORDER BY event_date DESC');
     res.json(events.rows);
   } catch (err) {
     res.status(500).send('Server Error');
