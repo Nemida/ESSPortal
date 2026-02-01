@@ -50,7 +50,7 @@ const LoginPage = () => {
               autoComplete="email"
               required
               className="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm shadow-sm"
-              placeholder="you@example.com"
+              placeholder="john.doe@drdo.gov.in, password is password"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
