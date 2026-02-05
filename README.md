@@ -1,4 +1,4 @@
-# MyWork
+# Employee Self-Service (ESS) Portal
 
 A comprehensive web-based portal designed for internal organization management. This system streamlines employee services including leave management, IT asset tracking, grievance redressal, and internal communications.
 
