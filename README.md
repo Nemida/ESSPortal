@@ -5,6 +5,10 @@ A comprehensive web-based portal designed for internal organization management. 
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange)
 ![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue)
 
+https://github.com/user-attachments/assets/83f2357e-a46c-485c-a66f-85d386e99d39
+
+
+
 ## Features
 
 * **Role-Based Access Control**
